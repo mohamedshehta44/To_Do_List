@@ -16,5 +16,63 @@
     <link rel="stylesheet" href="CSS/style.css" />
     <script src="JS/master.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="header">
+        <p>DAILY FOCUS</p>
+        <h1>Todo List</h1>
+        <p>Organize your tasks, stay focused, and get things done.</p>
+
+        <div id="date"></div>
+    </div>
+
+    <br>
+
+    <div>
+        <i class="fa-solid fa-list"></i>
+        <input type="text" id="taskInput" placeholder="Enter a new task...">
+        <button id="add">+ Add Task</button>
+    </div>
+
+    <br>
+
+    <div class="section">
+        <div>
+            <h3>TOTAL TASKS</h3>
+            <p><span id="totalCount">0</span> items</p>
+    </div>
+
+    <div>
+        <h3>COMPLETED</h3>
+        <p><span id="completedCount">0</span> items</p>
+    </div>
+
+    <div>
+        <h3>REMAINING</h3>
+        <p><span id="count">0</span> items</p>
+    </div>
+    </div>
+
+    <br>
+
+    <h2>My Tasks</h2>
+    <p>Keep track of your daily tasks.</p>
+
+    <button class="tab active" data-filter="all">
+        All
+    </button>
+
+    <button class="tab" data-filter="completed">
+        Completed
+    </button>
+
+    <button class="tab" data-filter="remaining">
+        Remaining
+    </button>
+
+    <br><br>
+
+    <div id="taskList"></div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
