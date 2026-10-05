@@ -17,62 +17,64 @@
     <script src="JS/master.js" defer></script>
   </head>
   <body>
-    <div class="header">
-        <p>DAILY FOCUS</p>
-        <h1>Todo List</h1>
-        <p>Organize your tasks, stay focused, and get things done.</p>
+    <div class="container">
+      <div id="header">
+        <div class="box">
+          <h1>todo list</h1>
+          <p>organize your tasks, stay focused, and get things done.</p>
+        </div>
+        <div class="date"></div>
+      </div>
 
-        <div id="date"></div>
-    </div>
-
-    <br>
-
-    <div>
-        <i class="fa-solid fa-list"></i>
-        <input type="text" id="taskInput" placeholder="Enter a new task...">
-        <button id="add">+ Add Task</button>
-    </div>
-
-    <br>
-
-    <div class="section">
+      <div id="textfield">
         <div>
-            <h3>TOTAL TASKS</h3>
-            <p><span id="totalCount">0</span> items</p>
+          <i class="fa-solid fa-list"></i>
+          <input type="text" placeholder="enter a new task..." />
+        </div>
+        <button class="add">+ add task</button>
+      </div>
+
+      <div id="statistics">
+        <div>
+          <div>
+            <h3>total tasks</h3>
+            <p><span id="totalCount"></span> items</p>
+          </div>
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+
+        <div>
+          <div>
+            <h3>completed</h3>
+            <p><span id="completedCount"></span> items</p>
+          </div>
+          <i class="fa-solid fa-check"></i>
+        </div>
+
+        <div>
+          <div>
+            <h3>remaining</h3>
+            <p><span id="count"></span> items</p>
+          </div>
+          <i class="fa-light fa-clock"></i>
+        </div>
+      </div>
+
+      <div class="tasks">
+        <div class="title">
+          <h2>my tasks</h2>
+          <p>keep track of your daily tasks.</p>
+        </div>
+        <div class="sort-tasks">
+          <button class="tab active" data-filter="all">all</button>
+
+          <button class="tab" data-filter="completed">completed</button>
+
+          <button class="tab" data-filter="remaining">remaining</button>
+
+          <div id="taskList"></div>
+        </div>
+      </div>
     </div>
-
-    <div>
-        <h3>COMPLETED</h3>
-        <p><span id="completedCount">0</span> items</p>
-    </div>
-
-    <div>
-        <h3>REMAINING</h3>
-        <p><span id="count">0</span> items</p>
-    </div>
-    </div>
-
-    <br>
-
-    <h2>My Tasks</h2>
-    <p>Keep track of your daily tasks.</p>
-
-    <button class="tab active" data-filter="all">
-        All
-    </button>
-
-    <button class="tab" data-filter="completed">
-        Completed
-    </button>
-
-    <button class="tab" data-filter="remaining">
-        Remaining
-    </button>
-
-    <br><br>
-
-    <div id="taskList"></div>
-
-    <script src="script.js"></script>
   </body>
 </html>
