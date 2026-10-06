@@ -1,6 +1,20 @@
 const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 let counter = 1;
 const buttonAddTask = document.querySelector(".add");
+const taskListContainer = document.getElementById("taskList")
+
+function displayTasks() {
+  taskListContainer.innerHTML ="";
+  tasks.forEach(task => {
+    taskListContainer.innerHTML +=`
+         <div>
+         <span>${task.title}</span>
+         </div>`;
+    
+  });
+
+  
+}
 const nameDays = [
   "Saturday",
   "Sunday",
@@ -32,7 +46,28 @@ buttonAddTask.addEventListener("click", () => {
   const day = date.getDate();
   const indexMonth = date.getMonth();
 
-  const valueOfInput = document.querySelector("input").value;
+  const input = document.querySelector("input");
+  const valueOfInput = input.value.trim()
+    if (valueOfInput === "") {
+    alert("please enter a task.")
+    input.value ="";
+    return;
+    
+  }
+  if (valueOfInput.length >100) {
+    alert("task text is too long please enter a task with less than 100 character .")
+    input.value ="";
+    return;
+    
+  }
+  const taskExists = tasks.some((task)=>{
+    return  task.title.trim().toLowerCase() === valueOfInput.toLowerCase();});
+  if (taskExists) {
+    alert("Task already exists!")
+    input.value = "";
+    return;
+    
+  }
   const taskList = {
     id: counter,
     title: valueOfInput,
@@ -43,9 +78,10 @@ buttonAddTask.addEventListener("click", () => {
   };
   tasks.push(taskList);
   window.localStorage.setItem("tasks", JSON.stringify(tasks));
+  displayTasks();
   counter++;
 });
+displayTasks();
 
-// hint
-//local storage دلوقتى انا خزنت القيم ف
-// (for each) كل اللى عليكى تعمليه تعرضيهم عن طريق استخدامك ل
+
+
