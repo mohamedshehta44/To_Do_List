@@ -36,6 +36,7 @@ buttonAddTask.addEventListener("click", () => {
   const taskList = {
     id: counter,
     title: valueOfInput,
+    isCompleted: false,
     numberDay: day,
     nameDay: nameDays[indexDay + 1],
     nameMonth: nameMonths[indexMonth],
@@ -44,7 +45,6 @@ buttonAddTask.addEventListener("click", () => {
   window.localStorage.setItem("tasks", JSON.stringify(tasks));
   counter++;
 });
-
 
 // hint
 //local storage دلوقتى انا خزنت القيم ف
