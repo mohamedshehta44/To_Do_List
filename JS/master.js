@@ -7,9 +7,19 @@ function displayTasks() {
   taskListContainer.innerHTML ="";
   tasks.forEach(task => {
     taskListContainer.innerHTML +=`
+         <div class ="task-item">
          <div>
          <span>${task.title}</span>
-         </div>`;
+         <small>${task.date} at ${task.time}</small>
+         </div>
+         </div>
+        <div class="task-buttons">
+         <button><i class="fa-solid fa-check"></i></i></button>
+         <button><i class="fa-solid fa-edit"></i></button>
+         <button><i class="fa-solid fa-trash"></i></button>
+
+        </div>
+`;
     
   });
 
@@ -72,6 +82,8 @@ buttonAddTask.addEventListener("click", () => {
     id: counter,
     title: valueOfInput,
     isCompleted: false,
+    date: date.toLocaleDateString(),
+    time: date.toLocaleTimeString(),
     numberDay: day,
     nameDay: nameDays[indexDay + 1],
     nameMonth: nameMonths[indexMonth],
@@ -80,6 +92,7 @@ buttonAddTask.addEventListener("click", () => {
   window.localStorage.setItem("tasks", JSON.stringify(tasks));
   displayTasks();
   counter++;
+  input.value = "";
 });
 displayTasks();
 
