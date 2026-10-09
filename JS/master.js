@@ -31,6 +31,21 @@ const nameMonths = [
 let tasksList = tasks;
 let sort;
 
+
+
+// هنكمل الجزء ده لما نبدا في ال css
+function showMessage(message) {
+  const messageContainer = document.querySelector(".message");
+  messageContainer.textContent = message;
+  messageContainer.classList.add("show");
+  setTimeout(function () {
+    messageContainer.classList.remove("show");
+  }, 3000);}
+
+
+
+// Function to display tasks in the task list container
+
 function displayTasks() {
   taskListContainer.innerHTML = "";
   tasksList.forEach((task) => {
@@ -42,13 +57,61 @@ function displayTasks() {
           </div>
           <div class="task-buttons">
             <button class = "state" data-id=${task.id}>${task.isCompleted ? "completed" : "remaining"}</button>
-            <button class = "" data-id==${task.id}><i class="fa-solid fa-edit"></i></button>
-            <button class = "" data-id==${task.id}><i class="fa-solid fa-trash"></i></button>
+            <button class = "edit" data-id=${task.id}><i class="fa-solid fa-edit"></i></button>
+            <button type = "button" class="delete"  data-id="${task.id}" aria-label="Delete task : ${task.title}"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
           </div>
         </div>
 `;
   });
 }
+
+// Event delegation for delete button
+
+taskListContainer.addEventListener("click", function (event) {
+
+const deleteButton = event.target.closest(".delete");
+
+if(!deleteButton) return;
+
+const taskId = parseInt(deleteButton.dataset.id);
+const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+if (taskIndex === -1) return;
+const confirmDelete = confirm(`Are you sure you want to delete the task: "${tasks[taskIndex].title}"?`);
+
+
+if (!confirmDelete) return; 
+
+  tasks.splice(taskIndex, 1);
+  window.localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  displayTasks();
+});
+
+
+
+// delete all tasks button functionality
+
+const deleteAllButton = document.querySelector("#delete-all");
+deleteAllButton.addEventListener("click", function () { 
+   if (tasks.length === 0) {
+      showMessage("No tasks to delete.");
+      return;
+   }
+
+   const confirmDeleteAll = confirm("Are you sure you want to delete all tasks?");
+   if (!confirmDeleteAll) return;
+
+   tasks.length = 0;
+   tasksList = tasks;
+   localStorage.setItem("tasks", JSON.stringify(tasks));
+   displayTasks();
+   alert("All tasks have been deleted.");
+  });
+
+
+
+
 
 const completedTasks = tasks.filter((task) => task.isCompleted === true);
 const incompleteTasks = tasks.filter((task) => task.isCompleted === false);
@@ -62,11 +125,15 @@ sortButton.forEach((btn) => {
     } else {
       tasksList = tasks;
     }
+
     displayTasks();
   });
 });
 
-buttonAddTask.addEventListener("click", () => {
+
+// Function to add a new task
+
+function addTask() {
   const date = new Date();
   const indexDay = date.getDay();
   const day = date.getDate();
@@ -94,6 +161,8 @@ buttonAddTask.addEventListener("click", () => {
     input.value = "";
     return;
   }
+
+
   const taskList = {
     id: counter,
     title: valueOfInput,
@@ -104,10 +173,28 @@ buttonAddTask.addEventListener("click", () => {
     nameDay: nameDays[indexDay + 1],
     nameMonth: nameMonths[indexMonth],
   };
+
+
   tasks.push(taskList);
   window.localStorage.setItem("tasks", JSON.stringify(tasks));
   displayTasks();
   counter++;
   input.value = "";
+}
+
+
+// Event listeners for adding tasks
+
+buttonAddTask.addEventListener("click", addTask);
+document.querySelector("input").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    addTask();
+  }
 });
+
+
+
+
+
+
 displayTasks();
