@@ -34,6 +34,15 @@ const nameMonths = [
   "December",
 ];
 
+buttons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    buttons.forEach((button) => {
+      button.classList.remove("active");
+    });
+    btn.classList.add("active");
+  });
+});
+
 //head section
 const dateNow = new Date();
 console.log(dateNow.getDate());
@@ -45,8 +54,11 @@ let sort;
 let tasksList = tasks;
 function displayTasks() {
   taskListContainer.innerHTML = "";
-  tasksList.forEach((task) => {
-    taskListContainer.innerHTML += `
+  if (tasksList.length === 0) {
+    taskListContainer.innerHTML = `<div class ="task-item" style="display:grid;place-items:center ;padding:20px">No tasks add</div>`;
+  } else {
+    tasksList.forEach((task) => {
+      taskListContainer.innerHTML += `
         <div class ="task-item">
           <div class="info">
             <h4>${task.title}</h4>
@@ -58,7 +70,8 @@ function displayTasks() {
           </div>
         </div>
 `;
-  });
+    });
+  }
 }
 
 displayTasks();
@@ -126,15 +139,10 @@ function handleSortTasks() {
 }
 handleSortTasks();
 
-// localStorage.clear()
-// Function to add a new task
-// محتاجخ تعديلات
-
 function handleAddTask() {
   document.forms[0].addEventListener("submit", (e) => {
     e.preventDefault();
     let inputValue = document.querySelector("input[type=text]").value.trim();
-
     const date = new Date();
     const indexDay = date.getDay();
     const day = date.getDate();
@@ -155,5 +163,4 @@ function handleAddTask() {
     document.querySelector("input[type=text]").value = "";
   });
 }
-
 handleAddTask();

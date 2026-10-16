@@ -79,6 +79,10 @@ img {
   gap: 8px;
 }
 
+#header .box p {
+  color: #808080;
+}
+
 #header .date {
   background-color: var(--mainColor);
   border: 2px solid var(--secondaryColor);
@@ -155,6 +159,11 @@ img {
   grid-template-columns: 1fr;
 }
 
+#tasks p,
+#tasks span {
+  color: #808080;
+}
+
 .sort-tasks {
   display: grid;
   grid-template-columns: 1fr;
@@ -170,24 +179,25 @@ img {
   margin: auto;
 }
 
+.active {
+  border: 2px solid;
+}
+
 .containerBTN button:nth-child(1) {
   background-color: rgba(46, 144, 250, 0.2);
   color: #2e90fa;
-  border: 1px solid;
 }
 
 .containerBTN button:nth-child(2),
 .state.completed {
   background-color: #ecfdf3;
   color: #059669;
-  border: 1px solid;
 }
 
 .containerBTN button:nth-child(3),
 .state:not(.completed) {
   background-color: #fff6ed;
   color: #d97706;
-  border: 1px solid;
 }
 
 #taskList {
@@ -196,9 +206,11 @@ img {
   gap: 8px;
   max-height: 350px;
   overflow: auto;
+  border: 1px solid gray;
+  padding: 5px;
 }
 
-#taskList::-webkit-scrollbar{
+#taskList::-webkit-scrollbar {
   display: none;
 }
 
@@ -227,6 +239,11 @@ img {
   color: #dc2626;
   border: 1px solid #dc2626;
   border-radius: 10px;
+}
+
+.state.completed,
+.state:not(.completed) {
+  border: 1px solid;
 }
 
 /* xs: Mobile */
