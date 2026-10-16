@@ -17,41 +17,28 @@
     <script src="JS/master.js" defer></script>
   </head>
   <body>
-    <div class="container">
+    <main class="container">
       <div id="header">
         <div class="box">
-          <h1>todo list</h1>
+          <h1>to-do list</h1>
           <p>organize your tasks, stay focused, and get things done.</p>
         </div>
-        <div class="date"></div>
+        <div class="date"><i class="fa-regular fa-calendar"></i></div>
       </div>
 
-      <div id="textfield">
-        <div>
-          <i class="fa-solid fa-list"></i>
-          <input type="text" placeholder="enter a new task..." />
-        </div>
+      <form action="" id="textfield">
+        <input type="text" placeholder="enter a new task..." required />
         <button class="add">+ add task</button>
-        <button  type="button" id="delete-all"> delete all</button>
-      </div>
-   
-
-      <div class="message"></div>
-
-
-
-
-
+      </form>
       <div id="statistics">
-        <div>
+        <div class="box">
           <div>
             <h3>total tasks</h3>
             <p><span id="totalCount"></span> items</p>
           </div>
           <i class="fa-solid fa-list-check"></i>
         </div>
-
-        <div>
+        <div class="box">
           <div>
             <h3>completed</h3>
             <p><span id="completedCount"></span> items</p>
@@ -59,30 +46,32 @@
           <i class="fa-solid fa-check"></i>
         </div>
 
-        <div>
+        <div class="box">
           <div>
             <h3>remaining</h3>
-            <p><span id="count"></span> items</p>
+            <p><span id="remainingCount"></span> items</p>
           </div>
-          <i class="fa-light fa-clock"></i>
+          <i class="fa-regular fa-clock"></i>
         </div>
       </div>
 
-      <div class="tasks">
+      <div id="tasks">
         <div class="title">
           <h2>my tasks</h2>
           <p>keep track of your daily tasks.</p>
         </div>
         <div class="sort-tasks">
-          <button class="tab active" data-filter="all">all</button>
+          <div class="containerBTN">
+            <button class="tab active" data-filter="all">all</button>
 
-          <button class="tab" data-filter="completed">completed</button>
+            <button class="tab" data-filter="completed">completed</button>
 
-          <button class="tab" data-filter="remaining">remaining</button>
-
+            <button class="tab" data-filter="remaining">remaining</button>
+          </div>
           <div id="taskList"></div>
         </div>
       </div>
-    </div>
+    </main>
+    <footer></footer>
   </body>
 </html>

@@ -1,17 +1,22 @@
-const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+let tasks = JSON.parse(localStorage.getItem("Tasks") || "[]");
+const dateItem = document.querySelector(".date");
 const buttonAddTask = document.querySelector(".add");
+const toggleBTN = document.querySelector("#theme");
 const taskListContainer = document.getElementById("taskList");
 const sortButton = document.querySelectorAll(".tab");
-let counter = 1;
+const totalCount = document.querySelector("#totalCount");
+const completedCount = document.querySelector("#completedCount");
+const remainingCount = document.querySelector("#remainingCount");
+const buttons = document.querySelectorAll(".tab");
 
 const nameDays = [
-  "Saturday",
   "Sunday",
   "Monday",
   "Tuesday",
   "Wednesday",
   "Thursday",
   "Friday",
+  "Saturday",
 ];
 
 const nameMonths = [
@@ -28,36 +33,27 @@ const nameMonths = [
   "November",
   "December",
 ];
-let tasksList = tasks;
+
+//head section
+const dateNow = new Date();
+console.log(dateNow.getDate());
+console.log(dateNow.getDay());
+dateItem.innerHTML += `${nameDays[dateNow.getDay()]} , ${dateNow.getDate()} ${nameMonths[dateNow.getMonth()]}`;
 let sort;
 
-
-
-// هنكمل الجزء ده لما نبدا في ال css
-function showMessage(message) {
-  const messageContainer = document.querySelector(".message");
-  messageContainer.textContent = message;
-  messageContainer.classList.add("show");
-  setTimeout(function () {
-    messageContainer.classList.remove("show");
-  }, 3000);}
-
-
-
 // Function to display tasks in the task list container
-
+let tasksList = tasks;
 function displayTasks() {
   taskListContainer.innerHTML = "";
   tasksList.forEach((task) => {
     taskListContainer.innerHTML += `
         <div class ="task-item">
-          <div>
-            <span>${task.title}</span>
-            <small>${task.date} at ${task.time}</small>
+          <div class="info">
+            <h4>${task.title}</h4>
+            <span> <i class="fa-regular fa-clock"></i> ${task.date} at ${task.time}</span>
           </div>
           <div class="task-buttons">
-            <button class = "state" data-id=${task.id}>${task.isCompleted ? "completed" : "remaining"}</button>
-            <button class = "edit" data-id=${task.id}><i class="fa-solid fa-edit"></i></button>
+            <button class = "state ${task.isCompleted ? "completed" : ""}" data-id=${task.id}>${task.isCompleted ? "completed" : "remaining"}</button>
             <button type = "button" class="delete"  data-id="${task.id}" aria-label="Delete task : ${task.title}"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -65,136 +61,99 @@ function displayTasks() {
   });
 }
 
-// Event delegation for delete button
+displayTasks();
 
-taskListContainer.addEventListener("click", function (event) {
-
-const deleteButton = event.target.closest(".delete");
-
-if(!deleteButton) return;
-
-const taskId = parseInt(deleteButton.dataset.id);
-const taskIndex = tasks.findIndex((task) => task.id === taskId);
-
-if (taskIndex === -1) return;
-const confirmDelete = confirm(`Are you sure you want to delete the task: "${tasks[taskIndex].title}"?`);
-
-
-if (!confirmDelete) return; 
-
-  tasks.splice(taskIndex, 1);
-  window.localStorage.setItem("tasks", JSON.stringify(tasks));
-
-  displayTasks();
-});
-
-
-
-// delete all tasks button functionality
-
-const deleteAllButton = document.querySelector("#delete-all");
-deleteAllButton.addEventListener("click", function () { 
-   if (tasks.length === 0) {
-      showMessage("No tasks to delete.");
-      return;
-   }
-
-   const confirmDeleteAll = confirm("Are you sure you want to delete all tasks?");
-   if (!confirmDeleteAll) return;
-
-   tasks.length = 0;
-   tasksList = tasks;
-   localStorage.setItem("tasks", JSON.stringify(tasks));
-   displayTasks();
-   alert("All tasks have been deleted.");
-  });
-
-
-
-
-
-const completedTasks = tasks.filter((task) => task.isCompleted === true);
-const incompleteTasks = tasks.filter((task) => task.isCompleted === false);
-sortButton.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    sort = btn.innerHTML;
-    if (sort === "completed") {
-      tasksList = completedTasks;
-    } else if (sort === "remaining") {
-      tasksList = incompleteTasks;
-    } else {
+// delete of task
+function handleDelete() {
+  taskListContainer.addEventListener("click", (event) => {
+    if (!event.target.closest(".delete")) return;
+    const check = window.confirm("Are you sure you want to delete this task?");
+    if (check) {
+      const newList = tasks.filter((task) => {
+        return task.id != event.target.closest(".delete").dataset.id;
+      });
+      tasks = newList;
       tasksList = tasks;
+      localStorage.setItem("Tasks", JSON.stringify(tasks));
     }
-
     displayTasks();
   });
-});
+}
+handleDelete();
 
-
-// Function to add a new task
-
-function addTask() {
-  const date = new Date();
-  const indexDay = date.getDay();
-  const day = date.getDate();
-  const indexMonth = date.getMonth();
-
-  const input = document.querySelector("input");
-  const valueOfInput = input.value.trim();
-  if (valueOfInput === "") {
-    alert("please enter a task.");
-    input.value = "";
-    return;
-  }
-  if (valueOfInput.length > 100) {
-    alert(
-      "task text is too long please enter a task with less than 100 character .",
-    );
-    input.value = "";
-    return;
-  }
-  const taskExists = tasks.some((task) => {
-    return task.title.trim().toLowerCase() === valueOfInput.toLowerCase();
+// change state
+function handleChangeState() {
+  taskListContainer.addEventListener("click", (event) => {
+    if (!event.target.closest(".state")) return;
+    const newList = tasks.map((task) => {
+      if (task.id == event.target.closest(".state").dataset.id) {
+        return { ...task, isCompleted: !task.isCompleted };
+      }
+      return task;
+    });
+    tasks = newList;
+    tasksList = tasks;
+    localStorage.setItem("Tasks", JSON.stringify(tasks));
+    displayTasks();
   });
-  if (taskExists) {
-    alert("Task already exists!");
-    input.value = "";
-    return;
-  }
+}
+handleChangeState();
 
+// sorting
 
-  const taskList = {
-    id: counter,
-    title: valueOfInput,
-    isCompleted: false,
-    date: date.toLocaleDateString(),
-    time: date.toLocaleTimeString(),
-    numberDay: day,
-    nameDay: nameDays[indexDay + 1],
-    nameMonth: nameMonths[indexMonth],
-  };
+function handleSortTasks() {
+  sortButton.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const completedTasks = tasks.filter((task) => {
+        return task.isCompleted === true;
+      });
 
+      const incompleteTasks = tasks.filter((task) => {
+        return task.isCompleted === false;
+      });
+      sort = btn.innerHTML;
+      if (sort === "completed") {
+        tasksList = completedTasks;
+      } else if (sort === "remaining") {
+        tasksList = incompleteTasks;
+      } else {
+        tasksList = tasks;
+      }
 
-  tasks.push(taskList);
-  window.localStorage.setItem("tasks", JSON.stringify(tasks));
-  displayTasks();
-  counter++;
-  input.value = "";
+      displayTasks();
+    });
+  });
+}
+handleSortTasks();
+
+// localStorage.clear()
+// Function to add a new task
+// محتاجخ تعديلات
+
+function handleAddTask() {
+  document.forms[0].addEventListener("submit", (e) => {
+    e.preventDefault();
+    let inputValue = document.querySelector("input[type=text]").value.trim();
+
+    const date = new Date();
+    const indexDay = date.getDay();
+    const day = date.getDate();
+    const indexMonth = date.getMonth();
+    const taskList = {
+      id: Date.now(),
+      title: inputValue,
+      isCompleted: false,
+      date: date.toLocaleDateString(),
+      time: date.toLocaleTimeString(),
+      numberDay: day,
+      nameDay: nameDays[indexDay + 1],
+      nameMonth: nameMonths[indexMonth],
+    };
+    tasks.push(taskList);
+    window.localStorage.setItem("Tasks", JSON.stringify(tasks));
+    displayTasks();
+    document.querySelector("input[type=text]").value = "";
+  });
 }
 
-
-// Event listeners for adding tasks
-
-buttonAddTask.addEventListener("click", addTask);
-document.querySelector("input").addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    addTask();
-  }
-});
-
-
-
-
-
-
-displayTasks();
+handleAddTask();

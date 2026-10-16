@@ -1,0 +1,371 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+  text-transform: capitalize;
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+}
+
+:root {
+  --bodyColor: #fafcff;
+  --mainColor: #ffffff;
+  --secondaryColor: #2e90fa;
+  --borderStyle: 1px solid rgb(190, 200, 210, 0.3);
+  --boxShadow: 0px 1px 2px 0px rgb(255, 255, 255, 0.05);
+  --textColor: #000000;
+  --headBGColor: rgba(232, 230, 230, 0.05);
+}
+
+.dark {
+  --bodyColor: #070a12;
+  --mainColor: #0e1422;
+  --secondaryColor: #38bdf8;
+  --borderStyle: 1px solid rgb(190, 200, 210, 0.3);
+  --boxShadow: 0px 1px 2px 0px rgb(255, 255, 255, 0.05);
+  --textColor: #ffffff;
+  --headBGColor: #243149;
+}
+
+body {
+  background-color: var(--bodyColor);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+header {
+  background-color: var(--mainColor);
+  box-shadow: var(--boxShadow);
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  border-radius: 0;
+}
+
+img {
+  border-radius: 0;
+  width: 70px;
+  height: 30px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: auto;
+  padding: 50px 0;
+}
+
+#header {
+  background-color: var(--headBGColor);
+  border: var(--borderStyle);
+  box-shadow: var(--boxShadow);
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--textColor);
+}
+
+#header .box {
+  display: grid;
+  gap: 8px;
+}
+
+#header .date {
+  background-color: var(--mainColor);
+  border: 2px solid var(--secondaryColor);
+  color: var(--secondaryColor);
+  justify-self: flex-end;
+  border-radius: 10px;
+}
+
+#textfield {
+  display: grid;
+  position: relative;
+  justify-content: space-between;
+  color: var(--textColor);
+}
+
+#textfield input {
+  width: 100%;
+  height: 100%;
+  border: var(--borderStyle);
+}
+
+#textfield button {
+  color: var(--mainColor);
+  background-color: var(--secondaryColor);
+  border: none;
+}
+
+#statistics {
+  color: var(--textColor);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+  gap: 8px;
+}
+
+#statistics .box {
+  background-color: var(--mainColor);
+  border: var(--borderStyle);
+  box-shadow: var(--borderStyle);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#statistics .box h3 {
+  color: var(--secondaryColorText);
+}
+
+#statistics .box i {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+}
+
+.fa-list-check {
+  background-color: #eff8ff;
+  color: #2e90fa;
+}
+
+.fa-check {
+  background-color: #ecfdf3;
+  color: #059669;
+}
+
+.box .fa-clock {
+  background-color: #fff6ed;
+  color: #d97706;
+}
+
+#tasks {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.sort-tasks {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: var(--borderStyle);
+  color: var(--textColor);
+  background-color: var(--mainColor);
+}
+
+.containerBTN {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-around;
+  margin: auto;
+}
+
+.containerBTN button:nth-child(1) {
+  background-color: rgba(46, 144, 250, 0.2);
+  color: #2e90fa;
+  border: 1px solid;
+}
+
+.containerBTN button:nth-child(2),
+.state.completed {
+  background-color: #ecfdf3;
+  color: #059669;
+  border: 1px solid;
+}
+
+.containerBTN button:nth-child(3),
+.state:not(.completed) {
+  background-color: #fff6ed;
+  color: #d97706;
+  border: 1px solid;
+}
+
+#taskList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  max-height: 350px;
+  overflow: auto;
+}
+
+#taskList::-webkit-scrollbar{
+  display: none;
+}
+
+.task-item {
+  border: var(--borderStyle);
+  background-color: var(--bodyColor);
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.task-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
+.delete {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: 10px;
+}
+
+/* xs: Mobile */
+@media (max-width: 599px) {
+  .container {
+    width: calc(100% - 40px);
+    gap: 10px;
+  }
+  #header {
+    padding: 15px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  #header .date {
+    padding: 8px;
+  }
+  #textfield {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  #textfield input,
+  #textfield button {
+    padding: 10px;
+  }
+  #statistics .box,
+  .sort-tasks,
+  .task-item {
+    padding: 10px;
+  }
+  #tasks,
+  .sort-tasks,
+  .task-buttons {
+    gap: 8px;
+  }
+
+  .containerBTN {
+    width: 90%;
+    gap: 5px;
+  }
+  .containerBTN button {
+    padding: 6px 15px;
+  }
+  .task-item {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .task-buttons button {
+    padding: 5px 10px;
+  }
+}
+
+/* sm: Tablet small */
+@media (min-width: 600px) {
+  .container {
+    width: 90%;
+    gap: 12px;
+  }
+  #header {
+    padding: 20px;
+    grid-template-columns: repeat(2, auto);
+  }
+  #header .date {
+    padding: 10px;
+  }
+  #textfield {
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+  #textfield input,
+  #textfield button {
+    padding: 14px;
+  }
+
+  #statistics .box,
+  .sort-tasks,
+  .task-item {
+    padding: 12px;
+  }
+  #tasks,
+  .sort-tasks,
+  .task-buttons {
+    gap: 10px;
+  }
+  .containerBTN {
+    width: 60%;
+  }
+  .containerBTN button {
+    padding: 8px 17px;
+  }
+  .task-item {
+    grid-template-columns: repeat(2, auto);
+  }
+  .task-buttons button {
+    padding: 7px 12px;
+  }
+}
+
+/* md: Tablet */
+@media (min-width: 900px) {
+  .container {
+    width: 80%;
+    gap: 15px;
+  }
+  #header {
+    padding: 25px;
+  }
+  #header .date {
+    padding: 12px;
+  }
+  #textfield input,
+  #textfield button {
+    padding: 16px;
+  }
+
+  #statistics .box,
+  .sort-tasks,
+  .task-item {
+    padding: 15px;
+  }
+  #tasks,
+  .sort-tasks,
+  .task-buttons {
+    gap: 12px;
+  }
+  .containerBTN button {
+    padding: 10px 20px;
+  }
+  .task-buttons button {
+    padding: 10px 14px;
+  }
+}
+
+/* lg: Laptop */
+@media (min-width: 1200px) {
+  .container {
+    width: 60%;
+    gap: 20px;
+  }
+  #header {
+    padding: 30px;
+  }
+}
