@@ -41,22 +41,9 @@ body {
   gap: 20px;
 }
 
-header {
-  background-color: var(--mainColor);
-  box-shadow: var(--boxShadow);
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  justify-content: space-between;
-  padding: 20px;
-  align-items: center;
-  border-radius: 0;
-}
 
-img {
-  border-radius: 0;
-  width: 70px;
-  height: 30px;
-}
+
+
 
 .container {
   display: grid;
@@ -230,10 +217,11 @@ img {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
-  max-height: 350px;
+  max-height: 245px;
   overflow: auto;
   border: var(--borderStyle);
   padding: 5px;
+  background-color: var(--bodyColor);
 }
 
 #taskList::-webkit-scrollbar {
@@ -242,7 +230,7 @@ img {
 
 .task-item {
   border: var(--borderStyle);
-  background-color: var(--bodyColor);
+  background-color: var(--mainColor);
   display: grid;
   grid-template-columns: repeat(2, auto);
   justify-content: space-between;
