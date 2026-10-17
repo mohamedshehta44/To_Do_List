@@ -19,9 +19,10 @@ button {
   --boxShadow: 0px 1px 2px 0px rgb(255, 255, 255, 0.05);
   --textColor: #000000;
   --headBGColor: rgba(232, 230, 230, 0.05);
+  --secondaryTextColor: #6e7881;
 }
 
-.dark {
+/* .dark {
   --bodyColor: #070a12;
   --mainColor: #0e1422;
   --secondaryColor: #38bdf8;
@@ -29,7 +30,7 @@ button {
   --boxShadow: 0px 1px 2px 0px rgb(255, 255, 255, 0.05);
   --textColor: #ffffff;
   --headBGColor: #243149;
-}
+} */
 
 body {
   background-color: var(--bodyColor);
@@ -79,8 +80,12 @@ img {
   gap: 8px;
 }
 
+#header .box h1 {
+  font-weight: bold;
+}
+
 #header .box p {
-  color: #808080;
+  color: var(--secondaryTextColor);
 }
 
 #header .date {
@@ -129,6 +134,22 @@ img {
 
 #statistics .box h3 {
   color: var(--secondaryColorText);
+  font-weight: 700;
+}
+
+#statistics .box .totalCount,
+#statistics .box .completedCount,
+#statistics .box .remainingCount {
+  font-weight: bold;
+}
+
+#statistics .box p {
+  color: var(--secondaryTextColor);
+  font-weight: 500;
+}
+
+#statistics .box span {
+  color: #000000;
 }
 
 #statistics .box i {
@@ -159,6 +180,10 @@ img {
   grid-template-columns: 1fr;
 }
 
+#tasks h2 {
+  font-weight: 700;
+}
+
 #tasks p,
 #tasks span {
   color: #808080;
@@ -177,6 +202,7 @@ img {
   grid-template-columns: repeat(3, auto);
   justify-content: space-around;
   margin: auto;
+  font-weight: 500;
 }
 
 .active {
@@ -223,6 +249,14 @@ img {
   align-items: center;
 }
 
+#taskList .task-item h4 {
+  font-weight: 700;
+}
+
+#taskList .task-item span {
+  color: var(--secondaryColorText);
+}
+
 .info {
   display: grid;
   grid-template-columns: 1fr;
@@ -232,6 +266,7 @@ img {
 .task-buttons {
   display: grid;
   grid-template-columns: repeat(3, auto);
+  font-weight: 700;
 }
 
 .delete {
@@ -257,6 +292,13 @@ img {
     grid-template-columns: 1fr;
     gap: 10px;
   }
+  #header .box h1 {
+    font-size: 28px;
+  }
+  #header .box p,
+  #header .date {
+    font-size: 14px;
+  }
   #header .date {
     padding: 8px;
   }
@@ -267,16 +309,44 @@ img {
   #textfield input,
   #textfield button {
     padding: 10px;
+    font-size: 15px;
   }
   #statistics .box,
   .sort-tasks,
   .task-item {
     padding: 10px;
   }
+  #statistics .box h3 {
+    font-size: 12px;
+  }
+
+  #statistics .box .totalCount,
+  #statistics .box .completedCount,
+  #statistics .box .remainingCount {
+    font-size: 22px;
+  }
+
+  #statistics .box p {
+    font-size: 13px;
+  }
+
+  #statistics .box span {
+    font-size: 22px;
+  }
+
   #tasks,
   .sort-tasks,
   .task-buttons {
     gap: 8px;
+  }
+
+  #tasks h2 {
+    font-size: 22px;
+  }
+
+  #tasks p,
+  #tasks .tab {
+    font-size: 14px;
   }
 
   .containerBTN {
@@ -290,8 +360,18 @@ img {
     grid-template-columns: 1fr;
     gap: 5px;
   }
+  #taskList .task-item h4 {
+    font-size: 16px;
+  }
+
+  #taskList .task-item span,
+  .empty-task {
+    font-size: 13px;
+  }
+
   .task-buttons button {
     padding: 5px 10px;
+    font-size: 12px;
   }
 }
 
