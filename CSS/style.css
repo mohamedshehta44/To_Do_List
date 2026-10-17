@@ -181,7 +181,7 @@ img {
 }
 
 #tasks h2 {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 #tasks p,
@@ -232,7 +232,7 @@ img {
   gap: 8px;
   max-height: 350px;
   overflow: auto;
-  border: 1px solid gray;
+  border: var(--borderStyle);
   padding: 5px;
 }
 
@@ -341,7 +341,7 @@ img {
   }
 
   #tasks h2 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   #tasks p,

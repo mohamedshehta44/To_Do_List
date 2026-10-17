@@ -63,6 +63,7 @@ function handleAddTask() {
     tasks.push(taskList);
     window.localStorage.setItem("Tasks", JSON.stringify(tasks));
     displayTasks();
+    setDataInStatisticsSection();
     document.querySelector("input[type=text]").value = "";
   });
 }
@@ -152,6 +153,7 @@ function handleChangeState() {
     tasks = newList;
     tasksList = tasks;
     localStorage.setItem("Tasks", JSON.stringify(tasks));
+    
     displayTasks();
     setDataInStatisticsSection();
   });
